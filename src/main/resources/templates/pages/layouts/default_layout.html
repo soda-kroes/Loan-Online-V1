@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Loan-Online</title>
+    <link rel="icon" type="image/png" href="https://www.cambodiapostbank.com/wp-content/themes/cpb/assets/images/favicon.png">
+    <!-- Call style -->
+    <style th:replace="/share/style"></style>
+    <div layout:fragment="style"></div>
+</head>
+<body>
+<div th:replace="/share/header"></div>
+
+<div class="container-fluid">
+    <div layout:fragment="content"></div>
+</div>
+
+<!-- Call footer layout -->
+<div th:replace="/share/footer"></div>
+
+<!-- Call script -->
+<div th:replace="/share/script"></div>
+<div layout:fragment="script"></div>
+
+</body>
+</html>

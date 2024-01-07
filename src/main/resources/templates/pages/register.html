@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/default_layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <div layout:fragment="style">
+        <link rel="stylesheet" href="/assets/web/css/register.css" />
+    </div>
+</head>
+<body style="background-color: #e9e9e9;" >
+<div layout:fragment="content">
+    <div class="container-fluid bg-color " style="margin-top:10px;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="text-center">
+                    <div class="txt_title">Credit Application Form</div>
+                    <div class="kh_title">ទម្រង់ស្នើរសុំឥណទាន</div>
+                    <span id="applicant" style="display:none"></span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="sparkline8-graph" style="text-align:left;">
+            <div class="basic-login-form-ad">
+                <div class="row">
+                    <span style="font-weight: bold;">Step1:Personal Information</span>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="row">
+                    <div class="col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <b><span class="sky">*</span>FirstName</b>
+                        <input type="text" id="txtFirstName" class="form-control" />
+                    </div>
+                    <div class="col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <b><span class="sky">*</span>LastName</b>
+                        <input type="text" id="txtLastName" class="form-control" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <b style="width:100%;"><span class="sky">*</span>Gender: </b>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <select class="form-control" id="txtGender">
+                            <option value="">សូមជ្រើសរើស</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <b style="width:100%;"><span class="sky">*</span>Date-Of-Birth: </b>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <button class="input-group-text" disabled><i class="fas fa-calendar-week"></i></button>
+                            </div>
+                            <input readonly type="text" class="form-control" id="txtDateOfBirth" onchange="dobValidation()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <b style="width:100%;"><span class="sky">*</span>Identity-Card: </b>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" id="txtIdentityCard" class="form-control" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <b style="width:100%;"><span class="sky">*</span>Photo(Optional): </b>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <label for="fupload">
+                            <div class="fa fa-upload" style="font-size:40px;">  Upload</div>
+                            <input type="file" class="form-control-file file-upload" id="fupload" />
+                        </label>
+                        <img class="form-control-file" id="img" style="height:auto; width:50%; border:groove; display:none" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <b><span class="sky">*</span>Marital Status </b>
+                        <select class="form-control" id="txtMaritalStatus">
+                            <option value="0">សូមជ្រើសរើស</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <b style="width:100%;"><span class="sky">*</span>Phone: </b>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="number" class="form-control" id="txtPhone" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <b style="width:100%;"><span class="sky">*</span>Email(Optional): </b>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="email" class="form-control" id="txtEmail" />
+                    </div>
+                </div>
+                <div class="basic-login-inner">
+                    <div class="form-group-inner">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <b style="width:100%;"><span class="sky">*</span>Location: </b>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <span>  <span class="sky">*</span> ខេត្ត/ក្រុង  </span>
+                                <select   class="form-control selectOpt" onchange="getDis(this.value)" id="province">
+                                    <option value="0">សូមជ្រើសរើស</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <span>  <span class="sky">*</span> ស្រុក/ខណ្ឌ   </span>
+                                <select class="form-control selectOpt" onchange="getCom(this.value)" id="district">
+                                    <option value="0">សូមជ្រើសរើស</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <span>  <span class="sky">*</span> ឃុំ/សង្កាត់   </span>
+                                <select  class="form-control selectOpt" onchange="getVil(this.value)" id="commune">
+                                    <option value="0">សូមជ្រើសរើស</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <span><span class="sky">*</span>ភូមិ   </span>
+                                <select  class="form-control selectOpt" id="village">
+                                    <option value="0">សូមជ្រើសរើស</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="sparkline8-graph" style="text-align:left;">
+                    <div class="basic-login-form-ad">
+                        <div class="row">
+                            <span style="font-weight: bold;">Step2:Loan Information</span>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <b><span class="sky">*</span>Credit Size: </b>
+                            </div>
+                            <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <input type="number" class="form-control" id="txtCreditSize" />
+                            </div>
+                            <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <select class="form-control" id="txtCurrency" onchange="validateNumber($('#txtCreditSize').val(),this.id)" >
+                                    <option value="0">សូមជ្រើសរើស</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <b style="width:100%;"><span class="sky">*</span>Duration(Month): </b>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                <input type="number" class="form-control" onchange="validateNumber(this.value,this.id)" id="txtMonth" />
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <b style="width:100%;"><span class="sky">*</span>Credit Partner: </b>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                <input type="text" class="form-control" id="txtCreditPartner" />
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <b style="width:100%;"><span class="sky">*</span>Relationship?(Optional) </b>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                <select class="form-control" id="txtRelationship">
+                                    <option value="">សូមជ្រើសរើស</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <b style="width:100%;"><span class="sky">*</span>Purpose: </b>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                <select class="form-control" id="txtPurpose">
+                                    <option value="0">សូមជ្រើសរើស</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <b style="width:100%;"><span class="sky">*</span>Branch: </b>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                <select class="form-control" id="txtBranch">
+                                    <option value="0">សូមជ្រើសរើស</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div  class="col-12 justify-content-center">
+                    <div>
+                        <a target="_blank"  href="https://www.cambodiapostbank.com/loan-calculation" type="button" class="btn btn-danger"  > គណនាការប្រាក់ </a>
+                        <a href="#" type="button" class="btn btn-primary" id="btnSubmit" onClick="Submit()" > បញ្ជូន </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    window.Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+    let reqId = new Date().getFullYear();
+    let reqNo = Math.floor(100000 + Math.random() * 900000);
+
+    let applicant = document.getElementById('applicant');
+    applicant.textContent = `Applicant: ${reqId}${reqNo}`;
+    var BASE_URL = "http://localhost:8080";
+
+    $(document).ready(function() {
+        getPro();
+        $('#txtDateOfBirth').datetimepicker({
+           i18n:{
+                  de:{
+                   months:[
+                    'Januar','Februar','März','April',
+                    'Mai','Juni','Juli','August',
+                    'September','Oktober','November','Dezember',
+                   ],
+                   dayOfWeek:[
+                    "So.", "Mo", "Di", "Mi",
+                    "Do", "Fr", "Sa.",
+                   ]
+                  }
+                 },
+                 timepicker:false,
+                 format:'d.m.Y'
+          });
+    });
+
+
+ function ReadImages(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $('#img').attr('src', e.target.result);
+      $('#img').show(); // Show the image by removing the 'display: none' property
+      images = e.target.result; // Store the base64 string in the 'images' variable
+       $(".fa-upload").css("color", "green");
+    }
+    reader.readAsDataURL(input.files[0]);
+     $(".fa-upload").css("color", "black");
+  }
+}
+
+
+    $('#fupload').change(function () {
+        ReadImages(this);
+    })
+
+
+    //--- GET THE SELECT LIST
+	getTypeList('GENDER', 'txtGender');
+	getTypeList('MARITAL_STATUS', 'txtMaritalStatus');
+	getTypeList('RELATIONSHIP', 'txtRelationship');
+	getTypeList('PURPOSE', 'txtPurpose');
+	getTypeList('BRANCH', 'txtBranch');
+	getTypeList('CURRENCY', 'txtCurrency');
+
+    function getTypeList(TYPE, ID) {
+		$.ajax({
+			url : BASE_URL+"/getListType/" + TYPE,
+			type : 'GET',
+			success : function(results) {
+				var obj = JSON.parse(results);
+				var newStr = "";
+				if (obj.length > 0) {
+				   if (TYPE == "BRANCH" ||  TYPE == "CURRENCY" ) {
+						for (i = 0; i < obj.length; i++) {
+							$('#' + ID).append(
+									"<option value="+obj[i].value1+">"
+											+ obj[i].name_en
+											+ "</option>");
+						}
+
+					} else {
+						for (i = 0; i < obj.length; i++) {
+							$('#' + ID).append(
+									"<option value="+obj[i].name_en+">"
+											+ obj[i].name_kh
+											+ "</option>");
+						}
+					}
+
+
+				}
+			}
+		});
+	}
+
+
+    function getPro() {
+    alert(1);
+        $.ajax({
+            url: BASE_URL + "/getPro",
+            type: 'GET',
+            success: function(results) {
+                var obj = JSON.parse(results);
+                if (obj.length > 0) {
+                    for (var i = 0; i < obj.length; i++) {
+                        $('#province').append(
+                            "<option value='" + obj[i].CODE + "'>" +
+                            obj[i].NAMELATIN +
+                            "</option>"
+                        );
+                    }
+                }
+            }
+        });
+    }
+
+    	function getDis(id) {
+			$.ajax({
+				url : BASE_URL+"/getDis/"+id,
+				type : 'GET',
+				success : function(results) {
+					var obj = JSON.parse(results);
+					$('#district').empty();
+					if (obj.length > 0) {
+						for (i = 0; i < obj.length; i++) {
+							if(i==0)$('#district').append("<option value='0'>សូមជ្រើសរើស</option>");
+							$('#district').append(
+									"<option value="+obj[i].CODE+">"
+											+ obj[i].NAMELATIN
+											+ "</option>");
+						}
+					}
+				}
+			});
+	    }
+
+	    function getCom(id) {
+			$.ajax({
+				url : BASE_URL+"/getCom/"+id,
+				type : 'GET',
+				success : function(results) {
+					var obj = JSON.parse(results);
+					$('#commune').empty()
+					if (obj.length > 0) {
+						for (i = 0; i < obj.length; i++) {
+							if(i==0)$('#commune').append("<option value='0'>សូមជ្រើសរើស</option>");
+							$('#commune').append(
+									"<option value="+obj[i].CODE+">"
+											+ obj[i].NAMELATIN
+											+ "</option>");
+						}
+					}
+				}
+			});
+		}
+
+		function getVil(id) {
+			$("#vilLoading").css("display","block");
+			$("#village").css("display","none");
+			$.ajax({
+				url : BASE_URL+"/getVil/"+id,
+				type : 'GET',
+				success : function(results) {
+					var obj = JSON.parse(results);
+					$('#village').empty()
+					if (obj.length > 0) {
+						for (i = 0; i < obj.length; i++) {
+							if(i==0)$('#village').append("<option value='0'>សូមជ្រើសរើស</option>");
+							$('#village').append(
+									"<option value="+obj[i].CODE+">"
+											+ obj[i].NAMELATIN
+											+ "</option>");
+						}
+					}
+					$("#village").css("display","block");
+				}
+			});
+		}
+function validateNumber(input,id) {
+			if(id=="txtCreditSize" || id=="txtCurrency" ) {
+
+				if($("#txtCurrency option:selected").val()=='0'){
+						$("#txtCurrency option[value='USD']").attr("selected", "selected")
+				}
+				if($("#txtCurrency option:selected").val()=="USD"){
+
+					if($("#txtCreditSize").val() < 3000 && !isNaN(input)){
+						alert("Minimume loan size USD3,000 required");
+						$("#txtCreditSize").val("");
+						$('#txtCreditSize').css("border-color", "red");
+					}else{
+						$('#txtCreditSize').css("border-color", "");
+					}
+				}
+
+				if($("#txtCurrency option:selected").val()=="KHR"){
+
+					if($("#txtCreditSize").val() < 12000000 && !isNaN(input)){
+						alert("Minimume loan size KHR12,000,000 required");
+						$("#txtCreditSize").val("");
+						$('#txtCreditSize').css("border-color", "red");
+					}else{
+						$('#txtCreditSize').css("border-color", "");
+					}
+				}
+
+				if($("#txtCurrency option:selected").val()=="THB"){
+
+					if($("#txtCreditSize").val() < 120000 && !isNaN(input)){
+						alert("Minimume loan size THB 120,000 required");
+						$("#txtCreditSize").val("");
+						$('#txtCreditSize').css("border-color", "red");
+					}else{
+						$('#txtCreditSize').css("border-color", "");
+					}
+
+				}
+			}
+
+			if(id=="txtMonth") {
+				if($("#txtMonth").val() < 12 && !isNaN(input)){
+					alert("Minimume Month 12 required");
+					$("#txtMonth").val("");
+					$('#txtMonth').css("border-color", "red");
+				}else {
+					$('#txtMonth').css("border-color", "");
+				}
+			}
+		}
+
+function validateForm() {
+		var firstName = $("#txtFirstName").val();
+        var lastName = $("#txtLastName").val();
+        var gender = $("#txtGender option:selected").val();
+        var dob = $("#txtDateOfBirth").val();
+        var identityCard = $("#txtIdentityCard").val();
+        var identityCardPic=$("#picNidHidden").val()
+        var maritalStatus = $("#txtMaritalStatus option:selected").val();
+        var phone = $("#txtPhone").val();
+        var email = $("#txtEmail").val();
+        var province = $("#province").val();
+        var district = $("#district").val();
+        var commune = $("#commune").val();
+        var village = $("#village").val();
+        var creditSize = $("#txtCreditSize").val();
+        var currency = $("#txtCurrency option:selected").val();
+        var month = $("#txtMonth").val();
+        var creditPartner = $("#txtCreditPartner").val();
+        var creditPartnerStatus = $("#txtRelationship").val();
+        var purpose = $("#txtPurpose option:selected").val();
+        var branch = $("#txtBranch option:selected").val();
+
+			var msg = "";
+			if (gender == '0' || identityCard == '' || purpose == '0'  || branch == '0' || currency == '0' || maritalStatus == '0' || dob=='' || phone == ''  || month == ''   || firstName=='' || lastName=='' || district=='0' || commune=='0' || province=='0' || village=='0' || creditPartner=='' ) {
+				if (firstName == ''){
+					$('#txtFirstName').css("border-color", "red");
+				}else{
+					$('#txtFirstName').css("border-color", "");
+				}
+
+				if (lastName == ''){
+					$('#txtLastName').css("border-color", "red");
+				}else{
+					$('#txtLastName').css("border-color", "");
+				}
+				if (txtGender == '0'){
+					$('#txtGender').css("border-color", "red");
+				}else{
+					$('#txtGender').css("border-color", "");
+				}
+				if (identityCard == ''){
+					$('#txtIdentityCard').css("border-color", "red");
+				}else{
+					$('#txtIdentityCard').css("border-color", "");
+				}
+				 if(dob=='' ) {
+					$('#txtDateOfBirth').css("border-color", "red");
+				}else{
+					$('#txtDateOfBirth').css("border-color", "");
+				}
+
+				if (maritalStatus == '0'){
+					$('#txtMaritalStatus').css("border-color", "red");
+				}else{
+					$('#txtMaritalStatus').css("border-color", "");
+				}
+
+				if (phone == ''){
+					$('#txtPhone').css("border-color", "red");
+				}else{
+					$('#txtPhone').css("border-color", "");
+				}
+				if (creditPartner == ''){
+					$('#txtCreditPartner').css("border-color", "red");
+				}else{
+					$('#txtCreditPartner').css("border-color", "");
+				}
+				if (district == '0') {
+					$('#district').css("border-color", "red");
+				}else{
+					$('#district').css("border-color", "");
+				}
+				if (commune == '0') {
+					$('#commune').css("border-color", "red");
+				}else{
+					$('#commune').css("border-color", "");
+				}
+				if (province == '0') {
+					$('#province').css("border-color", "red");
+				}else{
+					$('#province').css("border-color", "");
+				}
+
+				if (village == '0') {
+					$('#village').css("border-color", "red");
+				}else{
+					$('#village').css("border-color", "");
+				}
+
+				if (creditSize=='') {
+					$('#txtCreditSize').css("border-color", "red");
+				}else{
+					$('#txtCreditSize').css("border-color", "");
+				}
+				if (month=='') {
+					$('#txtMonth').css("border-color", "red");
+				}else{
+					$('#txtMonth').css("border-color", "");
+				}
+
+				if (purpose=='0') {
+					$('#txtPurpose').css("border-color", "red");
+				}else{
+					$('#txtPurpose').css("border-color", "");
+				}
+				if (branch=='0') {
+					$('#txtBranch').css("border-color", "red");
+				}else{
+					$('#txtBranch').css("border-color", "");
+				}
+				if (currency=='0') {
+					$('#txtCurrency').css("border-color", "red");
+				}else{
+					$('#txtCurrency').css("border-color", "");
+				}
+				exit(0);
+			}
+		}
+
+            function dobValidation() {
+                /// age 18 year
+                var n1 = new Date($("#txtDateOfBirth").val());
+                var dyear = n1.getFullYear();
+                var d1 = new Date();
+                var year1 = d1.getFullYear();
+                //console.log(parseInt(year1-dyear));
+                if(parseInt(year1-dyear) < 18  ){
+                    alert("You cannot request.Your Age is less than 18 years. ");
+                    $('#txtDateOfBirth').val("");
+                    $('#txtDateOfBirth').css("border-color", "red");
+                    exit(0);
+                }else{
+                    $('#txtDateOfBirth').css("border-color", "");
+                }
+		}
+
+$('#txtFirstName,#txtLastName').on('keyup', function (){
+        $(this).val($(this).val().toUpperCase())
+ })
+function Submit() {
+		validateForm();
+		var json = {
+			firstName : $("#txtFirstName").val(),
+			lastName : $("#txtLastName").val(),
+			gender : $("#txtGender option:selected").val(),
+			dob:$("#txtDateOfBirth").val(),
+			identityCard : $("#txtIdentityCard").val(),
+            identityCardPic: images,
+            maritalStatus : $("#txtMaritalStatus option:selected").val(),
+            phone : $("#txtPhone").val(),
+            email : $("#txtEmail").val(),
+            province : $("#province").val(),
+            district : $("#district").val(),
+            commune : $("#commune").val(),
+            village : $("#village").val(),
+            creditSize : $("#txtCreditSize").val(),
+            currency : $("#txtCurrency option:selected").val(),
+            month : $("#txtMonth").val(),
+            creditPartner : $("#txtCreditPartner").val(),
+            creditPartnerStatus : $("#txtRelationship").val(),
+            purpose : $("#txtPurpose option:selected").val(),
+            branch : $("#txtBranch option:selected").val(),
+            requestNo: `${reqId}${reqNo}`,
+		};
+		console.log(JSON.stringify(json));
+		  $.ajax({
+			url : BASE_URL+"/addCustomer",
+			type : 'POST',
+			dataType : 'json',
+			data : JSON.stringify(json),
+			contentType : 'application/json',
+			success : function(response) {
+			   Toast.fire({
+                        icon: 'success',
+                        title: "Your Request Success."
+                    });
+			   setTimeout(function() {
+                    window.location.href = BASE_URL + "/success";
+                }, 2000); // Delay in milliseconds (e.g., 2000ms = 2 seconds)
+			},
+			error : function() {
+				alert('error');
+			}
+		});
+	}
+</script>
